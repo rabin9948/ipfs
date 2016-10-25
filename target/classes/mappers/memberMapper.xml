@@ -3,9 +3,14 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.zerock.mapper.MemberMapper">
+<mapper namespace="com.kgucs.mapper.MemberMapper">
 	
+	<select id="login" resultType="string">
+		select case (select case id when #{id} then password else '1' end from member) when #{password} then '2' when '1' then '1' else '0' end 
+		from member
+	</select>
 	
+
 	
 
 </mapper>
