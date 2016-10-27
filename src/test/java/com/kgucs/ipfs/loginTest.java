@@ -1,5 +1,8 @@
 package com.kgucs.ipfs;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kgucs.domain.FileVO;
 import com.kgucs.domain.UserVO;
 import com.kgucs.persistence.MemberDAO;
 
@@ -22,6 +26,16 @@ public class loginTest {
 	SqlSession session;
 	
 	private static String namespace = "com.kgucs.mapper.MemberMapper";
+	
+	@Test
+	public void insertId(){
+		
+		UserVO vo = new UserVO();
+		vo.setId("ra");
+		vo.setPassword("ra");
+		
+		dao.signUp(vo);
+	}
 	
 	@Test
 	public void loginT(){
@@ -44,5 +58,41 @@ public class loginTest {
 		}
 		
 		
+	}
+	
+	@Test
+	public void checkId(){
+		
+		UserVO vo = new UserVO();
+		vo.setId("ra");
+		
+		System.out.println(dao.checkId(vo));
+		
+	}
+	
+	@Test
+	public void signUp(){
+		
+		UserVO vo = new UserVO();
+		vo.setId("raaa");
+		vo.setPassword("raaa");
+		
+		System.out.println("signUpÀÇ °á°ú"+dao.signUp(vo));
+	}
+
+	@Test
+	public void getFiles(){
+		
+		UserVO vo = new UserVO();
+		vo.setIndex(4);
+		
+		List<FileVO> files = dao.getFiles(vo);
+		Iterator<FileVO> iter = files.iterator();
+		
+		while(iter.hasNext()){
+			FileVO fvo = iter.next();
+			
+			System.out.println(fvo.getIndex());
+		}
 	}
 }
