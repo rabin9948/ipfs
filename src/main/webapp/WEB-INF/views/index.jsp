@@ -136,6 +136,7 @@
   <script src="resources/custom/login.js"></script>
   
   <script>
+  var isCheck = false;
 $('#signupModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -144,6 +145,22 @@ $('#signupModal').on('show.bs.modal', function (event) {
 	});
 $('#signupButton').on('click', function (event) {
 	$('#signupModal').modal('show');
+});
+
+$('#signup-id').on('focusout', function (event) {
+	$.ajax({
+	    url : "/ipfs/member/check-id",
+	    dataType : "json",
+	    type : "post",
+	    data : {"id":$(event.target).val()},
+	    success: function(data) {
+	        alert(data);
+	    },
+	    error:function(request,status,error){
+	        alert("code:"+request.status+"\n"+"error:"+error);
+	    }
+	}); 
+
 });
 </script>
   
