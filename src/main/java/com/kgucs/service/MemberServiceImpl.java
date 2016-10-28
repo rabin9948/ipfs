@@ -39,8 +39,5 @@ public class MemberServiceImpl implements MemberService {
 		return mdao.getUser(uvo);
 	}
 	
-	@Override
-	public List<FileVO> getFiles(UserVO vo){
-		return mdao.getFiles(vo);
-	}
+	
 }

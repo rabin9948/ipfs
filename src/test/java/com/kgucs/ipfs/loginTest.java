@@ -77,22 +77,7 @@ public class loginTest {
 		vo.setId("raaa");
 		vo.setPassword("raaa");
 		
-		System.out.println("signUpÀÇ °á°ú"+dao.signUp(vo));
+		System.out.println("signUpï¿½ï¿½ ï¿½ï¿½ï¿½"+dao.signUp(vo));
 	}
 
-	@Test
-	public void getFiles(){
-		
-		UserVO vo = new UserVO();
-		vo.setIndex(4);
-		
-		List<FileVO> files = dao.getFiles(vo);
-		Iterator<FileVO> iter = files.iterator();
-		
-		while(iter.hasNext()){
-			FileVO fvo = iter.next();
-			
-			System.out.println(fvo.getIndex());
-		}
-	}
 }

@@ -14,5 +14,5 @@ public interface MemberDAO {
 	
 	public UserVO getUser(UserVO uvo);
 	
-	public List<FileVO> getFiles(UserVO vo);
+
 }

@@ -152,7 +152,11 @@ $('#signup-id').on('focusout', function (event) {
 	    url : "/ipfs/member/check-id",
 	    dataType : "json",
 	    type : "post",
-	    data : {"id":$(event.target).val()},
+	    headers:{
+	    	'Accept' : 'application/json',
+	    	'Content-Type' : 'application/json'
+	    },
+	    data : JSON.stringify({"id":$(event.target).val()}),
 	    success: function(data) {
 	        alert(data);
 	    },

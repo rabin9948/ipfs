@@ -14,5 +14,4 @@ public interface MemberService {
 	
 	public UserVO getUser(UserVO uvo);
 	
-	public List<FileVO> getFiles(UserVO vo);
 }

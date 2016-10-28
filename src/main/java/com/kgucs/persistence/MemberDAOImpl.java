@@ -43,8 +43,5 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne(namespace+".getUser", uvo);
 	}
 	
-	@Override
-	public List<FileVO> getFiles(UserVO uvo){
-		return session.selectList(namespace+".getFiles", uvo);
-	} 
+ 
 }
