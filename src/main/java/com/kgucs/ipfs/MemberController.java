@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kgucs.domain.FileVO;
 import com.kgucs.domain.UserVO;
@@ -47,8 +48,10 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping(value="/check-id", method= RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value="/check-id", method= RequestMethod.POST)
 	public ResponseEntity<String> checkID(@RequestBody UserVO vo){
+		System.out.println(vo.getId());
 		ResponseEntity<String> entity = null;
 		
 		int searchId = 0;
@@ -70,7 +73,7 @@ public class MemberController {
 		return entity;
 	}
 	
-	@RequestMapping(value="/sign-up",method= RequestMethod.GET)
+	@RequestMapping(value="/sign-up",method= RequestMethod.POST)
 	public ResponseEntity<String> signUp(@RequestBody UserVO vo){
 		ResponseEntity<String> entity = null;
 		

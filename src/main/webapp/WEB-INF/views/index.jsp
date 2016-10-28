@@ -108,13 +108,13 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" id="signup-id" placeholder="ID">
+            <input type="text" class="form-control" name="id" id="signup-id" placeholder="ID">
           </div>
           <div class="form-group">
-            <input tyep="password" class="form-control" id="signup-password" placeholder="PASSWORD">
+            <input tyep="password" class="form-control" name="password" id="signup-password" placeholder="PASSWORD">
           </div>
           <div class="form-group">
-            <input tyep="password" class="form-control" id="signup-password-confirm" placeholder="REPEAT PASSWORD">
+            <input tyep="password" class="form-control" name="password-confirm" id="signup-password-confirm" placeholder="REPEAT PASSWORD">
           </div>
         </form>
       </div>
@@ -152,9 +152,13 @@ $('#signup-id').on('focusout', function (event) {
 	    url : "/ipfs/member/check-id",
 	    dataType : "json",
 	    type : "post",
-	    data : {"id":$(event.target).val()},
+	    headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+	    data : JSON.stringify({"id":$(event.target).val()}),
 	    success: function(data) {
-	        alert(data);
+	        console.log(Object.keys(data));
 	    },
 	    error:function(request,status,error){
 	        alert("code:"+request.status+"\n"+"error:"+error);
