@@ -59,7 +59,7 @@
 									</label>
 									<input type="password" name="password" required="" autocomplete="off">
 								  </div>
-								  <p class="signup"><a href="#">Signup Here</a></p>
+								  <p class="signup"><a href="#" id='signupButton' data-target="#signupModal">Signup Here</a></p>
 								  <button class="button button-block">Log In</button>
 								  </form>
 								</div>	        
@@ -96,6 +96,35 @@
 
 </section>
 
+<!-- 모달 다이얼로그 -->
+
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="signupModalLabel">Signup!</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" id="signup-id" placeholder="ID">
+          </div>
+          <div class="form-group">
+            <input tyep="password" class="form-control" id="signup-password" placeholder="PASSWORD">
+          </div>
+          <div class="form-group">
+            <input tyep="password" class="form-control" id="signup-password-confirm" placeholder="REPEAT PASSWORD">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <script src="resources/web/assets/jquery/jquery.min.js"></script>
   <script src="resources/tether/tether.min.js"></script>
@@ -105,6 +134,35 @@
   <script src="resources/jarallax/jarallax.js"></script>
   <script src="resources/theme/js/script.js"></script>
   <script src="resources/custom/login.js"></script>
+  
+  <script>
+  var isCheck = false;
+$('#signupModal').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button that triggered the modal
+	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+	  var modal = $(this)
+	});
+$('#signupButton').on('click', function (event) {
+	$('#signupModal').modal('show');
+});
+
+$('#signup-id').on('focusout', function (event) {
+	$.ajax({
+	    url : "/ipfs/member/check-id",
+	    dataType : "json",
+	    type : "post",
+	    data : {"id":$(event.target).val()},
+	    success: function(data) {
+	        alert(data);
+	    },
+	    error:function(request,status,error){
+	        alert("code:"+request.status+"\n"+"error:"+error);
+	    }
+	}); 
+
+});
+</script>
   
   
   <input name="animation" type="hidden">
