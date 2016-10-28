@@ -106,7 +106,7 @@
         <h4 class="modal-title" id="signupModalLabel">Signup!</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="#" onsubmit="return false;">
           <div class="form-group">
             <input type="text" class="form-control" name="id" id="signup-id" placeholder="ID" required>
           </div>
@@ -117,7 +117,7 @@
             <input type="password" class="form-control" name="password-confirm" id="signup-password-confirm" placeholder="REPEAT PASSWORD" required>
           </div>
           <div class="modal-footer">
-	        <input type="submit" class="btn btn-primary" value="Submit">
+	        <input type="submit" class="btn btn-primary" value="Submit" id="signup-submit">
 	      </div>
         </form>
       </div>
@@ -137,18 +137,25 @@
   <script src="resources/custom/login.js"></script>
   
   <script>
-var password = document.getElementById("password")
-  , confirm_password = document.getElementById("password-confirm");
+  var password = document.getElementById("signup-password")
+  , confirm_password = document.getElementById("signup-password-confirm");
 
 function validatePassword(){
   if(password.value != confirm_password.value) {
     confirm_password.setCustomValidity("Passwords Don't Match");
+    passwordCheck = false;
   } else {
     confirm_password.setCustomValidity('');
+    passwordCheck = true;
   }
 }
 
-  var isCheck = false;
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+
+  var idCheck = false;
+  var passwordCheck = false;
 $('#signupModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -162,21 +169,49 @@ $('#signupButton').on('click', function (event) {
 $('#signup-id').on('focusout', function (event) {
 	$.ajax({
 	    url : "/ipfs/member/check-id",
-	    dataType : "text",
+	    dataType : "json",
 	    type : "post",
-<<<<<<< HEAD
-	    headers:{
-	    	'Accept' : 'application/json',
-	    	'Content-Type' : 'application/json'
-=======
 	    headers: { 
 	        'Accept': 'application/json',
 	        'Content-Type': 'application/json' 
->>>>>>> 7aa782cd305cb1122d3a0dad80d0e8102ad8410e
 	    },
 	    data : JSON.stringify({"id":$(event.target).val()}),
 	    success: function(data) {
-	        console.log(Object.keys(data));
+	    	if(data.check_id === "abled") {
+	    		$('#signup-id').css('border-color', '#339933');
+	    		idCheck = true;
+	    	} else {
+	    		$('#signup-id').css('border-color', '#dd2222');
+	    		idCheck = false;
+	    	}
+	    },
+	    error:function(request,status,error){
+	        alert("code:"+request.status+"\n"+"error:"+error);
+	    }
+	}); 
+
+});
+
+$('#signup-submit').on('click', function (event) {
+	if(!idCheck || !passwordCheck)
+		return;
+	
+	$.ajax({
+	    url : "/ipfs/member/sign-up",
+	    dataType : "json",
+	    type : "post",
+	    headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+	    data : JSON.stringify({"id":$('#signup-id').val(), "password":$('#signup-password').val()}),
+	    success: function(data) {
+	    	if(data.create_member === "success") {
+				alert("Signup Success!");
+				$('#signupModal').modal('hide');
+	    	} else {
+	    		alert("Signup Fail.. Try Again.");
+	    	}
 	    },
 	    error:function(request,status,error){
 	        alert("code:"+request.status+"\n"+"error:"+error);
