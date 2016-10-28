@@ -108,19 +108,20 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" id="signup-id" placeholder="ID">
+            <input type="text" class="form-control" name="id" id="signup-id" placeholder="ID" required>
           </div>
           <div class="form-group">
-            <input tyep="password" class="form-control" id="signup-password" placeholder="PASSWORD">
+            <input type="password" class="form-control" name="password" id="signup-password" placeholder="PASSWORD" required>
           </div>
           <div class="form-group">
-            <input tyep="password" class="form-control" id="signup-password-confirm" placeholder="REPEAT PASSWORD">
+            <input type="password" class="form-control" name="password-confirm" id="signup-password-confirm" placeholder="REPEAT PASSWORD" required>
           </div>
+          <div class="modal-footer">
+	        <input type="submit" class="btn btn-primary" value="Submit">
+	      </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Submit</button>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -136,6 +137,17 @@
   <script src="resources/custom/login.js"></script>
   
   <script>
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("password-confirm");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
   var isCheck = false;
 $('#signupModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
@@ -150,15 +162,21 @@ $('#signupButton').on('click', function (event) {
 $('#signup-id').on('focusout', function (event) {
 	$.ajax({
 	    url : "/ipfs/member/check-id",
-	    dataType : "json",
+	    dataType : "text",
 	    type : "post",
+<<<<<<< HEAD
 	    headers:{
 	    	'Accept' : 'application/json',
 	    	'Content-Type' : 'application/json'
+=======
+	    headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+>>>>>>> 7aa782cd305cb1122d3a0dad80d0e8102ad8410e
 	    },
 	    data : JSON.stringify({"id":$(event.target).val()}),
 	    success: function(data) {
-	        alert(data);
+	        console.log(Object.keys(data));
 	    },
 	    error:function(request,status,error){
 	        alert("code:"+request.status+"\n"+"error:"+error);

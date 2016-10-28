@@ -15,7 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RestController;
+=======
+import org.springframework.web.bind.annotation.ResponseBody;
+>>>>>>> 7aa782cd305cb1122d3a0dad80d0e8102ad8410e
 
 import com.kgucs.domain.FileVO;
 import com.kgucs.domain.UserVO;
@@ -51,9 +55,18 @@ public class MemberController {
 		return result;
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value="/check-id", method= RequestMethod.POST)
 	public Map<String,String> checkID(@RequestBody UserVO vo){
 		Map<String, String> result = new HashMap<String, String>();
+=======
+	@ResponseBody
+	@RequestMapping(value="/check-id", method= RequestMethod.POST)
+	public ResponseEntity<String> checkID(@RequestBody UserVO vo){
+		System.out.println(vo.getId());
+		ResponseEntity<String> entity = null;
+		
+>>>>>>> 7aa782cd305cb1122d3a0dad80d0e8102ad8410e
 		int searchId = 0;
 		
 		try{
@@ -74,8 +87,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/sign-up",method= RequestMethod.POST)
+<<<<<<< HEAD
 	public Map<String,String> signUp(@RequestBody UserVO vo){
 		Map<String, String> result = new HashMap<String, String>();
+=======
+	public ResponseEntity<String> signUp(@RequestBody UserVO vo){
+		ResponseEntity<String> entity = null;
+		
+>>>>>>> 7aa782cd305cb1122d3a0dad80d0e8102ad8410e
 		int signUpResult = 0;
 		
 		try{
